@@ -39,7 +39,7 @@ public class AICarSpawner : MonoBehaviour
             ball.GetComponent<BallCollider>().IsThisAIBall = true;
             ball.transform.parent = aiCarParent.transform;
 
-            // positioning canvas does not work
+            // positioning canvas does not work in editor, works in build
             GameObject canvas = Instantiate(AICarCanvas, new Vector3(car.transform.position.x, car.transform.position.y + 2, car.transform.position.z), Quaternion.Euler(45, -90, 0));
             canvas.GetComponent<CarUIController>().isThisCanvasAI = true;
             FollowTarget followTarget = canvas.GetComponent<FollowTarget>();
