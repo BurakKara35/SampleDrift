@@ -17,6 +17,13 @@ public class CarUIController : MonoBehaviour
     public Sprite[] goodEmojiImages;
     public Sprite[] badEmojiImages;
 
+    private GameManager gameManager;
+
+    private string aiName;
+    private Image aiFlag;
+
+    [HideInInspector] public bool isThisCanvasAI;
+
     private void Awake()
     {
         feedbacks = new string[3];
@@ -26,6 +33,22 @@ public class CarUIController : MonoBehaviour
         feedbacks[2] = "GREAT";
 
         flagImage.color = new Color(255, 255, 255, 255);
+
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+    }
+
+    private void Start()
+    {
+        if (isThisCanvasAI)
+        {
+            SetAINameAndFlag();
+        }
+    }
+
+    private void SetAINameAndFlag()
+    {
+        nameText.text = gameManager.aiNames[Random.Range(0, gameManager.aiNames.Length)];
+        flagImage.sprite = gameManager.aiFlags[Random.Range(0, gameManager.aiFlags.Length)];
     }
 
     public string PlayerName

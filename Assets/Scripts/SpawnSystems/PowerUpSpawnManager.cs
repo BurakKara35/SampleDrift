@@ -18,8 +18,7 @@ public class PowerUpSpawnManager : MonoBehaviour
     public List<Pool> poolList;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
 
-    [SerializeField] private Transform SpawnPointX;
-    [SerializeField] private Transform SpawnPointZ;
+    private SpawningPoints spawningPoints;
 
     private bool isAllObjectsSpawned;
 
@@ -27,6 +26,8 @@ public class PowerUpSpawnManager : MonoBehaviour
     {
         objectsInHierarchy = transform.GetChild(0).transform;
         active = objectsInHierarchy.GetChild(0).transform;
+
+        spawningPoints = GameObject.FindGameObjectWithTag("SpawnManagers").GetComponent<SpawningPoints>();
 
         CreatePool();
     }
@@ -63,7 +64,7 @@ public class PowerUpSpawnManager : MonoBehaviour
 
         obj.SetActive(true);
         obj.transform.parent = active;
-        obj.transform.position = GetSpawnPoint(); ;
+        obj.transform.position = spawningPoints.GetSpawnPoint(); ;
 
         poolDictionary[tag].Enqueue(obj);
 
@@ -74,11 +75,6 @@ public class PowerUpSpawnManager : MonoBehaviour
     {
         gameObject.SetActive(false);
         gameObject.transform.parent = objectsInHierarchy;
-    }
-
-    public Vector3 GetSpawnPoint()
-    {
-        return new Vector3(Random.Range(-SpawnPointX.position.x,SpawnPointX.position.x), 0, (Random.Range(-SpawnPointZ.position.z,SpawnPointZ.position.z)));
     }
 
     public bool IsAllObjectsSpawned

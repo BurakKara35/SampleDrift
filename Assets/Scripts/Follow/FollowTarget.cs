@@ -6,15 +6,20 @@ public class FollowTarget : MonoBehaviour
 {
     [SerializeField] private Transform target;
 
-    private Vector3 differeceCameraAndTarget;
+    private Vector3 differeceThisAndTarget;
 
-    private void Awake()
+    public Transform Target
     {
-        differeceCameraAndTarget = transform.position - target.position;
+        set { target = value; }
+    }
+
+    private void Start()
+    {
+        differeceThisAndTarget = transform.position - target.position;
     }
 
     private void LateUpdate()
     {
-        transform.position = differeceCameraAndTarget + target.position;
+        transform.position = differeceThisAndTarget + target.position;
     }
 }

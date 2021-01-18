@@ -18,7 +18,7 @@ public class CarCollider : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Obstacle"))
+        if (collision.gameObject.CompareTag("AICar"))
         {
             colliderCommon.carUIController.GiveFeedbackToPlayer();
         }

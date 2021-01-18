@@ -29,6 +29,11 @@ public class CarMovement : MonoBehaviour
         transform.RotateAround(transform.position, transform.up, Time.fixedDeltaTime * turnSpeed);
     }
 
+    public void TurnToObject(Transform target)
+    {
+        transform.LookAt(target);
+    }
+
     public void Stop()
     {
         rigidbody.velocity = Vector3.zero;

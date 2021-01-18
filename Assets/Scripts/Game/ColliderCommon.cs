@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ColliderCommon : MonoBehaviour
 {
-    private bool powerUpTaken = false;
     private bool powerUpFinished = false;
     private float powerUpTimeInSeconds = 5;
 
-    PowerUpSpawnManager powerUpSpawnManager;
+    private PowerUpSpawnManager powerUpSpawnManager;
+    private SpawnManager spawnManager;
 
     [HideInInspector] public CarUIController carUIController;
 
@@ -20,6 +20,7 @@ public class ColliderCommon : MonoBehaviour
     {
         powerUpSpawnManager = GameObject.FindGameObjectWithTag("PowerUpSpawnManager").GetComponent<PowerUpSpawnManager>();
         carUIController = GameObject.FindGameObjectWithTag("CarUI").GetComponent<CarUIController>();
+        spawnManager = GameObject.FindGameObjectWithTag("SpawnManagers").GetComponent<SpawnManager>();
     }
 
     public void PowerUpTrigger(Collider other)
@@ -28,9 +29,9 @@ public class ColliderCommon : MonoBehaviour
         {
             powerUpSpawnManager.Discard(other.gameObject);
 
-            if (!powerUpTaken)
+            if (!spawnManager.powerUpTaken)
             {
-                powerUpTaken = true;
+                spawnManager.powerUpTaken = true;
                 powerUpName = "CircleBallPower";
                 powerCouroutine = StartCoroutine(PoweringUp());
             }
@@ -40,12 +41,6 @@ public class ColliderCommon : MonoBehaviour
                 powerCouroutine = StartCoroutine(PoweringUp());
             }
         }
-    }
-
-    public bool PowerUpTaken
-    {
-        get { return powerUpTaken; }
-        set { powerUpTaken = value; }
     }
     
     public bool PowerUpFinished
@@ -63,7 +58,13 @@ public class ColliderCommon : MonoBehaviour
     public IEnumerator PoweringUp()
     {
         yield return new WaitForSeconds(powerUpTimeInSeconds);
-        powerUpTaken = false;
+        spawnManager.powerUpTaken = false;
         powerUpFinished = true;
+    }
+
+    public bool PowerUpTaken
+    {
+        get { return spawnManager.powerUpTaken; }
+        set { spawnManager.powerUpTaken = value; }
     }
 }

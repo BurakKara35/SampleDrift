@@ -11,6 +11,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] private string playerName;
     [SerializeField] private Sprite flag;
 
+    public string[] aiNames;
+    public Sprite[] aiFlags;
+
     private void Awake()
     {
         carUIController = GameObject.FindGameObjectWithTag("CarUI").GetComponent<CarUIController>();

@@ -6,14 +6,12 @@ public class CarController : MonoBehaviour
 {
     private CarMovement movement;
     private CarDriftLine driftLine;
-    private CarCollider carCollider;
     private ColliderCommon carColliderCommon;
     private ColliderCommon ballColliderCommon;
+    private CarDriftDust carDriftDust;
+    private CarPowerUpControl carPowerUpControl;
 
     [HideInInspector] public Animator animator;
-
-    private PowerUpBehaviours powerUpBehaviours;
-    private bool isNewPowerTaken = false;
 
     private bool swipe = false;
     private bool swipeFinished = true;
@@ -27,8 +25,6 @@ public class CarController : MonoBehaviour
     private Transform ball;
     private Transform ballPosition;
 
-    [SerializeField] private GameObject dustParticle;
-    private float driftDustTimeInSecond;
     private bool isDriftingStopped = false;
 
     [HideInInspector] public bool isAlive;
@@ -41,14 +37,11 @@ public class CarController : MonoBehaviour
         ball = GameObject.FindGameObjectWithTag("Ball").transform;
         ballPosition = GameObject.FindGameObjectWithTag("BallPosition").transform;
         ballColliderCommon = ball.GetComponent<ColliderCommon>();
+        carDriftDust = GetComponent<CarDriftDust>();
         animator = GetComponent<Animator>();
+        carPowerUpControl = GetComponent<CarPowerUpControl>();
 
         carDirection = CarDirection.None;
-
-        powerUpBehaviours = null;
-
-        dustParticle.SetActive(false);
-        driftDustTimeInSecond = dustParticle.GetComponent<ParticleSystem>().main.duration;
 
         isAlive = true;
     }
@@ -81,50 +74,26 @@ public class CarController : MonoBehaviour
         {
             movement.TurnLeft();
             driftLine.StartEmitting();
-            dustParticle.SetActive(true);
+            carDriftDust.OpenDust();
         }
         else if (carDirection == CarDirection.Right)
         {
             movement.TurnRight();
             driftLine.StartEmitting();
-            dustParticle.SetActive(true);
+            carDriftDust.OpenDust();
         }
         else
         {
             if(isDriftingStopped) // I check drifting status to call these operations once
             {
                 driftLine.StopEmitting();
-                StartCoroutine(DriftDust());
+                StartCoroutine(carDriftDust.DriftDust());
+                isDriftingStopped = false;
             }
         }
         #endregion
 
-        #region PowerUps
-        if((ballColliderCommon.PowerUpTaken || carColliderCommon.PowerUpTaken) && !isNewPowerTaken)
-        {
-            // Behaviours can be increased in future and if it is increase enum can be used instead of string
-            if (ballColliderCommon.PowerUpName == "CircleBallPower" || carColliderCommon.PowerUpName == "CircleBallPower")
-            {
-                powerUpBehaviours = new CircleBallPowerUp(ball,this.transform,ballPosition);
-            }
-            isNewPowerTaken = true;
-        }
-
-        if (powerUpBehaviours != null)
-            powerUpBehaviours.PowerUp();
-
-        if ((ballColliderCommon.PowerUpFinished || carColliderCommon.PowerUpFinished))
-        {
-            ballColliderCommon.PowerUpFinished = false;
-            carColliderCommon.PowerUpFinished = false;
-            
-            if(powerUpBehaviours != null)
-                powerUpBehaviours.FinishBehaviour();
-            
-            powerUpBehaviours = null;
-            isNewPowerTaken = false;
-        }
-        #endregion
+        carPowerUpControl.CheckForPowerUp(ballColliderCommon,carColliderCommon,ballPosition,ball);
     }
 
     private void FixedUpdate()
@@ -152,11 +121,5 @@ public class CarController : MonoBehaviour
                 StartCoroutine(Swiping());
             }
         }
-    }
-
-    public IEnumerator DriftDust()
-    {
-        yield return new WaitForSeconds(driftDustTimeInSecond);
-        dustParticle.SetActive(false);
     }
 }

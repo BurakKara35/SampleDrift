@@ -496,8 +496,10 @@ GameObject:
   - component: {fileID: 3864521307027124671}
   - component: {fileID: 3864521307027124656}
   - component: {fileID: 3864521307027124670}
+  - component: {fileID: 2988496311055660186}
   - component: {fileID: 3864521307027124669}
   - component: {fileID: 3864521307027124657}
+  - component: {fileID: 3068131881063840646}
   - component: {fileID: 3864521307027124661}
   m_Layer: 0
   m_Name: Car
@@ -566,7 +568,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  dustParticle: {fileID: 3864521306058743819}
   isAlive: 0
 --- !u!114 &3864521307027124656
 MonoBehaviour:
@@ -599,6 +600,19 @@ MonoBehaviour:
   - {fileID: 3864521306012929551}
   - {fileID: 3864521306805479815}
   - {fileID: 3864521307752380224}
+--- !u!114 &2988496311055660186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3864521307027124663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f11107200e60de242bb3ad00bfb4a33b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dustParticle: {fileID: 3864521306058743819}
 --- !u!114 &3864521307027124669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -622,6 +636,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cf6e0406e3365fe49a6a2ecdc64c5e76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3068131881063840646
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3864521307027124663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8dcbf420620ff814e8e4c737e100d4ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!95 &3864521307027124661

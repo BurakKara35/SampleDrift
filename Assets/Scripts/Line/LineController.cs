@@ -19,4 +19,14 @@ public class LineController : MonoBehaviour
         lineRenderer.SetPosition(0, car.position);
         lineRenderer.SetPosition(1, ball.position);
     }
+
+    public Transform Car
+    {
+        set { car = value; }
+    }
+
+    public Transform Ball
+    {
+        set { ball = value; }
+    }
 }

@@ -8,6 +8,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField] private float PowerUpSpawningTimeInSeconds;
     private bool powerUpSpawned = false;
 
+    [HideInInspector] public bool powerUpTaken;
+
     ColliderCommon colliderCommonBall;
     ColliderCommon colliderCommonCar;
 
@@ -17,6 +19,8 @@ public class SpawnManager : MonoBehaviour
 
         colliderCommonBall = GameObject.FindGameObjectWithTag("Ball").GetComponent<ColliderCommon>();
         colliderCommonCar = GameObject.FindGameObjectWithTag("Car").GetComponent<ColliderCommon>();
+
+        powerUpTaken = false;
     }
 
     void Update()
@@ -30,11 +34,10 @@ public class SpawnManager : MonoBehaviour
                 StartCoroutine(PowerUpSpawning(PowerUpSpawningTimeInSeconds));
         }
 
-        if(colliderCommonBall.PowerUpTaken || colliderCommonCar.PowerUpTaken)
+        if (powerUpTaken)
         {
             StartCoroutine(PowerUpSpawning(PowerUpSpawningTimeInSeconds));
-            colliderCommonBall.PowerUpTaken = false;
-            colliderCommonCar.PowerUpTaken = false;
+            powerUpTaken = false;
         }
     }
 

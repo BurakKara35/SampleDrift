@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3173436621267985807}
   m_Layer: 0
-  m_Name: RightCorner
+  m_Name: ZCorner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -152,7 +152,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3173436622665741797}
   m_Layer: 0
-  m_Name: TopConer
+  m_Name: XConer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

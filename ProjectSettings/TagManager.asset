@@ -15,6 +15,10 @@ TagManager:
   - DeadZone
   - GameManager
   - ObstacleManager
+  - AICar
+  - SpawnManagers
+  - Water
+  - AICarSpawner
   layers:
   - Default
   - TransparentFX
